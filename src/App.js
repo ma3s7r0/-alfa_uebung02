@@ -1,10 +1,13 @@
-import './App.css'
+import './App.css';
+import Main from './Components/Main';
 
 function App() {
+
   return (
-    <div>
-    
-    </div>
+    <>
+      <h1>Bücher und mehr</h1>
+      <Main />
+    </>
   );
 }
 
