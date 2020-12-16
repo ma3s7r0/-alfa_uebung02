@@ -14,6 +14,7 @@ function Table(props) {
                         //Create the column headers
                         headers.map(header => <th>{header}</th>)
                     }
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

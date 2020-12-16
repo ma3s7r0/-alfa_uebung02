@@ -9,6 +9,7 @@ function TableRow({headers, element, index}) {
             //Create a cell for every property of the underlying object
             headers.map(header => <td> {element[header]} </td>)
             }
+            <td onClick={() => console.log("klick")}>{"In den Warenkorb>"}</td>
         </tr>      
     );
 }
