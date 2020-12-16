@@ -14,7 +14,8 @@ function Table(props) {
                         //Create the column headers
                         headers.map(header => <th>{header}</th>)
                     }
-                    <th></th>
+                    {(typeof props.clickText !== 'undefined' || typeof props.clickFunction !== 'undefined') ?
+                    <th></th> : ""}
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +23,7 @@ function Table(props) {
                     //Scroll through the entries
                     props.data.map(
                         (element, index) => (
-                            <TableRow headers={headers} element={element} index={index} />
+                            <TableRow headers={headers} element={element} index={index} clickText={props.clickText} clickFunction={props.clickFunction}/>
                         )
                     )
                 }

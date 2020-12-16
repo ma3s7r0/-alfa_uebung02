@@ -8,18 +8,14 @@ class Main extends Component {
         
         this.state = {
             category: 0,
-            /* cart: [] */
+            cart: []
         }
 
         this.changeCategory = this.changeCategory.bind(this)
-    }
+        this.addToCart = this.addToCart.bind(this)
+        this.removeFromCart = this.removeFromCart.bind(this)
 
-/*     cartItem = {
-        'Autor': "",
-        'Titel': "",
-        
-    } */
-    
+    }
 
     products = [
         {
@@ -103,6 +99,27 @@ class Main extends Component {
         })
     }
 
+    addToCart(item, index) {
+        console.log(JSON.stringify(item))
+        let newCart = [...this.state.cart]
+        newCart.push({
+            'Autor': item.Autor,
+            'Titel': item.Titel
+    })
+        this.setState({
+            cart : newCart
+        }, () => console.log("The new cart is "+JSON.stringify(this.state.cart))
+        )
+    }
+
+    removeFromCart(item, index) {
+        let newCart = [...this.state.cart]
+        newCart.splice(index,1)
+        this.setState({
+            cart: newCart
+        })
+    }
+
 
     render() {
         return (
@@ -110,10 +127,10 @@ class Main extends Component {
             <button onClick={this.changeCategory}>Produktkategorie wechseln</button>
 
             <h2>{this.products[this.state.category].name}</h2>
-            <Table data={this.products[this.state.category].items}/>
+            <Table data={this.products[this.state.category].items} clickText={"In den Warenkorb>"} clickFunction={this.addToCart}/>
 
-{/*             <h2>Warenkorb</h2>
-            <Table data={this.state.cart} /> */}
+            {((this.state.cart.length === 0)) ? "" : <h2>Warenkorb</h2>}
+            {((this.state.cart.length === 0)) ? "" : <Table data={this.state.cart} clickText={"Entfernen>"} clickFunction={this.removeFromCart}/>}
 
         </main>
     );                
