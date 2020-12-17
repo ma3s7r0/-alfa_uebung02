@@ -11,10 +11,10 @@ class Main extends Component {
             cart: []
         }
 
+        /* binding this to the some functions */
         this.changeCategory = this.changeCategory.bind(this)
         this.addToCart = this.addToCart.bind(this)
         this.removeFromCart = this.removeFromCart.bind(this)
-
     }
 
     products = [
@@ -92,15 +92,18 @@ class Main extends Component {
             ]
         }
     ];
+    
 
+    /* loops through the different categories     */
     changeCategory() {
         this.setState({
             category : (this.state.category + 1) % this.products.length
         })
     }
 
-    addToCart(item, index) {
-        console.log(JSON.stringify(item))
+    /* adds an item to the cart */
+    addToCart(index) {
+        let item = this.products[this.state.category].items[index]
         let newCart = [...this.state.cart]
         newCart.push({
             'Autor': item.Autor,
@@ -108,11 +111,12 @@ class Main extends Component {
     })
         this.setState({
             cart : newCart
-        }, () => console.log("The new cart is "+JSON.stringify(this.state.cart))
-        )
+        })
+        
     }
 
-    removeFromCart(item, index) {
+    /* removes an item from the cart array by the index*/
+    removeFromCart(index) {
         let newCart = [...this.state.cart]
         newCart.splice(index,1)
         this.setState({
@@ -128,9 +132,11 @@ class Main extends Component {
 
             <h2>{this.products[this.state.category].name}</h2>
             <Table data={this.products[this.state.category].items} clickText={"In den Warenkorb>"} clickFunction={this.addToCart}/>
+            
 
-            {((this.state.cart.length === 0)) ? "" : <h2>Warenkorb</h2>}
-            {((this.state.cart.length === 0)) ? "" : <Table data={this.state.cart} clickText={"Entfernen>"} clickFunction={this.removeFromCart}/>}
+            {/* if the cart is empty it won't be displayed */}
+            {this.state.cart.length ? "" : <h2>Warenkorb</h2>}
+            {this.state.cart.length ? "" : <Table data={this.state.cart} clickText={"Entfernen>"} clickFunction={this.removeFromCart}/>}
 
         </main>
     );                
